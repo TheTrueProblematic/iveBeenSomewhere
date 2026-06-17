@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ivebeensomewhere-tp.web.app/sitemap.xml

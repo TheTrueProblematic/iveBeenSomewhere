@@ -5,14 +5,195 @@
     <link rel="icon" type="image/webp" href="/JCPinIcon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#211c18" />
+    <meta name="description" content="Track your travels with the ultimate Johnny Cash 'I've Been Everywhere' interactive map and checklist. Mark the 92 locations, see your progress, and join the global leaderboard!" />
+    <meta name="keywords" content="Johnny Cash, I've Been Everywhere, travel tracker, travel checklist, country music, Johnny Cash song locations, interactive map, music travel map" />
+    <meta name="author" content="TrueProblematic" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ivebeensomewhere-tp.web.app/" />
+    <meta property="og:title" content="I've Been Everywhere - Johnny Cash Travel Tracker &amp; Map" />
+    <meta property="og:description" content="Track your travels with the ultimate Johnny Cash 'I've Been Everywhere' interactive map and checklist. Mark the 92 locations, see your progress, and join the global leaderboard!" />
+    <meta property="og:image" content="https://ivebeensomewhere-tp.web.app/JCPinIcon.webp" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ivebeensomewhere-tp.web.app/" />
+    <meta property="twitter:title" content="I've Been Everywhere - Johnny Cash Travel Tracker &amp; Map" />
+    <meta property="twitter:description" content="Track your travels with the ultimate Johnny Cash 'I've Been Everywhere' interactive map and checklist. Mark the 92 locations, see your progress, and join the global leaderboard!" />
+    <meta property="twitter:image" content="https://ivebeensomewhere-tp.web.app/JCPinIcon.webp" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ivebeensomewhere-tp.web.app/" />
+
+    <!-- Schema.org Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "I've Been Somewhere",
+        "alternateName": "Johnny Cash I've Been Everywhere Travel Tracker",
+        "description": "An interactive travel tracker and map based on Johnny Cash's song 'I've Been Everywhere'. Users can mark 92 locations as visited, view coordinates/polygons, and compete on a leaderboard.",
+        "url": "https://ivebeensomewhere-tp.web.app/",
+        "image": "https://ivebeensomewhere-tp.web.app/JCPinIcon.webp",
+        "applicationCategory": "TravelApplication",
+        "operatingSystem": "Web, iOS, Android, macOS, Windows",
+        "author": {
+          "@type": "Person",
+          "name": "TrueProblematic",
+          "url": "https://maximilianmcclelland.com"
+        },
+        "about": {
+          "@type": "MusicRecording",
+          "name": "I've Been Everywhere",
+          "byArtist": {
+            "@type": "MusicGroup",
+            "name": "Johnny Cash"
+          }
+        }
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Special+Elite&family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <title>I've Been Somewhere...</title>
+    <title>I've Been Everywhere - Johnny Cash Travel Tracker &amp; Map</title>
   </head>
   <body class="text-ink">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static SEO Fallback Content for Search Engine Crawlers. Present in the
+           served HTML so crawlers can read it, but visually hidden (display:none,
+           inline so it applies on first paint) to avoid a flash before React mounts.
+           React clears #root on mount, removing it from the live DOM. -->
+      <article style="display: none; padding: 2rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto;">
+        <h1>I've Been Everywhere - Johnny Cash Travel Tracker &amp; Map</h1>
+        <p>Welcome to the ultimate interactive travel tracker and checklist based on Johnny Cash's legendary country song, <strong>"I've Been Everywhere"</strong>. If you love the music of the Man in Black and enjoy traveling across North America, South America, and the Caribbean, this is the checklist for you.</p>
+        
+        <h2>About the Song and the Project</h2>
+        <p>Originally written by Australian singer Geoff Mack in 1959, and popularized in the Americas by Hank Snow, "I've Been Everywhere" became one of Johnny Cash's signature performances on his 1996 album <em>Unchained</em>. The song lists 92 distinct locations in a rapid-fire, rhythmic sequence.</p>
+        <p>Our interactive web application allows you to map your own travel history against the locations mentioned in the song. Register an account, log in, mark where you've been, and watch the map highlight the cities, states, and countries. See if you can go from "You've Been Nowhere" to "You've Been Somewhere" and finally reach 100% to claim "You've Been Everywhere!"</p>
+
+        <h2>Johnny Cash "I've Been Everywhere" Locations Checklist</h2>
+        <p>Here is the full chronological list of all 92 places mentioned in the song, which you can track on our interactive map:</p>
+        
+        <h3>Verse 1</h3>
+        <ul>
+          <li><strong>Reno</strong> (Nevada, USA)</li>
+          <li><strong>Chicago</strong> (Illinois, USA)</li>
+          <li><strong>Fargo</strong> (North Dakota, USA)</li>
+          <li><strong>Minnesota</strong> (USA - State)</li>
+          <li><strong>Buffalo</strong> (New York, USA)</li>
+          <li><strong>Toronto</strong> (Ontario, Canada)</li>
+          <li><strong>Winslow</strong> (Arizona, USA)</li>
+          <li><strong>Sarasota</strong> (Florida, USA)</li>
+          <li><strong>Wichita</strong> (Kansas, USA)</li>
+          <li><strong>Tulsa</strong> (Oklahoma, USA)</li>
+          <li><strong>Ottawa</strong> (Ontario, Canada)</li>
+          <li><strong>Oklahoma</strong> (USA - State)</li>
+          <li><strong>Tampa</strong> (Florida, USA)</li>
+          <li><strong>Panama</strong> (Country)</li>
+          <li><strong>Mattawa</strong> (Ontario, Canada)</li>
+          <li><strong>La Paloma</strong> (Uruguay)</li>
+          <li><strong>Bangor</strong> (Maine, USA)</li>
+          <li><strong>Baltimore</strong> (Maryland, USA)</li>
+          <li><strong>Salvador</strong> (El Salvador)</li>
+          <li><strong>Amarillo</strong> (Texas, USA)</li>
+          <li><strong>Tocopilla</strong> (Chile)</li>
+          <li><strong>Barranquilla</strong> (Colombia)</li>
+          <li><strong>Padilla</strong> (Colombia)</li>
+        </ul>
+
+        <h3>Verse 2</h3>
+        <ul>
+          <li><strong>Boston</strong> (Massachusetts, USA)</li>
+          <li><strong>Charleston</strong> (South Carolina, USA)</li>
+          <li><strong>Dayton</strong> (Ohio, USA)</li>
+          <li><strong>Louisiana</strong> (USA - State)</li>
+          <li><strong>Washington</strong> (D.C., USA)</li>
+          <li><strong>Houston</strong> (Texas, USA)</li>
+          <li><strong>Kingston</strong> (Ontario, Canada)</li>
+          <li><strong>Texarkana</strong> (Texas, USA)</li>
+          <li><strong>Monterey</strong> (California, USA)</li>
+          <li><strong>Ferriday</strong> (Louisiana, USA)</li>
+          <li><strong>Santa Fe</strong> (New Mexico, USA)</li>
+          <li><strong>Tallapoosa</strong> (Georgia, USA)</li>
+          <li><strong>Glen Rock</strong> (New Jersey, USA)</li>
+          <li><strong>Black Rock</strong> (Arkansas, USA)</li>
+          <li><strong>Little Rock</strong> (Arkansas, USA)</li>
+          <li><strong>Oskaloosa</strong> (Iowa, USA)</li>
+          <li><strong>Tennessee</strong> (USA - State)</li>
+          <li><strong>Hennessey</strong> (Oklahoma, USA)</li>
+          <li><strong>Chicopee</strong> (Massachusetts, USA)</li>
+          <li><strong>Spirit Lake</strong> (Iowa, USA)</li>
+          <li><strong>Grand Lake</strong> (Colorado, USA)</li>
+          <li><strong>Devil's Lake</strong> (North Dakota, USA)</li>
+          <li><strong>Crater Lake</strong> (Oregon, USA)</li>
+        </ul>
+
+        <h3>Verse 3</h3>
+        <ul>
+          <li><strong>Louisville</strong> (Kentucky, USA)</li>
+          <li><strong>Nashville</strong> (Tennessee, USA)</li>
+          <li><strong>Knoxville</strong> (Tennessee, USA)</li>
+          <li><strong>Ombabika</strong> (Ontario, Canada)</li>
+          <li><strong>Schefferville</strong> (Quebec, Canada)</li>
+          <li><strong>Jacksonville</strong> (Florida, USA)</li>
+          <li><strong>Waterville</strong> (Maine, USA)</li>
+          <li><strong>Costa Rica</strong> (Country)</li>
+          <li><strong>Pittsfield</strong> (Massachusetts, USA)</li>
+          <li><strong>Springfield</strong> (Illinois, USA)</li>
+          <li><strong>Bakersfield</strong> (California, USA)</li>
+          <li><strong>Shreveport</strong> (Louisiana, USA)</li>
+          <li><strong>Hackensack</strong> (New Jersey, USA)</li>
+          <li><strong>Cadillac</strong> (Michigan, USA)</li>
+          <li><strong>Fond du Lac</strong> (Wisconsin, USA)</li>
+          <li><strong>Davenport</strong> (Iowa, USA)</li>
+          <li><strong>Idaho</strong> (USA - State)</li>
+          <li><strong>Jellico</strong> (Tennessee, USA)</li>
+          <li><strong>Argentina</strong> (Country)</li>
+          <li><strong>Diamantina</strong> (Brazil)</li>
+          <li><strong>Pasadena</strong> (California, USA)</li>
+          <li><strong>Catalina</strong> (California, USA)</li>
+        </ul>
+
+        <h3>Verse 4</h3>
+        <ul>
+          <li><strong>Pittsburgh</strong> (Pennsylvania, USA)</li>
+          <li><strong>Parkersburg</strong> (West Virginia, USA)</li>
+          <li><strong>Gravelbourg</strong> (Saskatchewan, Canada)</li>
+          <li><strong>Colorado</strong> (USA - State)</li>
+          <li><strong>Ellensburg</strong> (Washington, USA)</li>
+          <li><strong>Rexburg</strong> (Idaho, USA)</li>
+          <li><strong>Vicksburg</strong> (Mississippi, USA)</li>
+          <li><strong>Eldorado</strong> (Arkansas, USA)</li>
+          <li><strong>Larimore</strong> (North Dakota, USA)</li>
+          <li><strong>Atmore</strong> (Alabama, USA)</li>
+          <li><strong>Haverstraw</strong> (New York, USA)</li>
+          <li><strong>Chatanika</strong> (Alaska, USA)</li>
+          <li><strong>Chaska</strong> (Minnesota, USA)</li>
+          <li><strong>Nebraska</strong> (USA - State)</li>
+          <li><strong>Alaska</strong> (USA - State)</li>
+          <li><strong>Opelika</strong> (Alabama, USA)</li>
+          <li><strong>Baraboo</strong> (Wisconsin, USA)</li>
+          <li><strong>Waterloo</strong> (Iowa, USA)</li>
+          <li><strong>Kalamazoo</strong> (Michigan, USA)</li>
+          <li><strong>Kansas City</strong> (Missouri, USA)</li>
+          <li><strong>Sioux City</strong> (Iowa, USA)</li>
+          <li><strong>Cedar City</strong> (Utah, USA)</li>
+          <li><strong>Dodge City</strong> (Kansas, USA)</li>
+        </ul>
+
+        <h2>Key Interactive Features</h2>
+        <ul>
+          <li><strong>Interactive Map:</strong> View custom coordinate pins and highlighted boundaries for regions and countries like Argentina, Panama, Costa Rica, El Salvador (Salvador), and US states.</li>
+          <li><strong>Chronological List:</strong> Track your travels in the exact order Johnny Cash sings them.</li>
+          <li><strong>Global Leaderboard:</strong> Compete with other music and travel enthusiasts to see who has visited the highest percentage of song locations.</li>
+          <li><strong>Secure Accounts:</strong> Log in using Firebase Authentication to save and sync your visited places across desktop and mobile devices.</li>
+        </ul>
+      </article>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
