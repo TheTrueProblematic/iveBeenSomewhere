@@ -5,12 +5,15 @@ import ListTracker from './components/ListTracker'
 import PlaceModal from './components/PlaceModal'
 import Leaderboard from './components/Leaderboard'
 import ProgressBanner from './components/ProgressBanner'
+import AuthModal from './components/AuthModal'
+import { auth, isTestMode } from './firebase'
+import { signOut } from 'firebase/auth'
 import { useStore } from './store'
 
 function App() {
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const { visitedPlaces, user } = useStore();
+  const { visitedPlaces, user, authModalOpen, setAuthModalOpen } = useStore();
 
   useEffect(() => {
     fetch('/places.json')
@@ -67,16 +70,37 @@ function App() {
             </div>
           </div>
 
-          {user && (
-            <div className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4 shrink-0">
-              <span className="grid h-8 w-8 place-items-center rounded-sm bg-brass-gradient font-display text-sm font-bold text-ink">
-                {(user.displayName || '?').charAt(0).toUpperCase()}
-              </span>
-              <span className="hidden sm:block font-typewriter text-sm">
-                <span className="text-paper/60">Howdy, </span>
-                <span className="font-bold text-paper-light">{user.displayName}</span>
-              </span>
+          {user ? (
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4">
+                <span className="grid h-8 w-8 place-items-center rounded-sm bg-brass-gradient font-display text-sm font-bold text-ink">
+                  {(user.displayName || '?').charAt(0).toUpperCase()}
+                </span>
+                <span className="hidden sm:block font-typewriter text-sm">
+                  <span className="text-paper/60">Howdy, </span>
+                  <span className="font-bold text-paper-light">{user.displayName}</span>
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  if (!isTestMode) {
+                    signOut(auth).catch(err => console.error("Logout error:", err));
+                  } else {
+                    alert("Running in test mode. Logout disabled.");
+                  }
+                }}
+                className="rounded-md border border-oxblood/40 bg-oxblood/10 px-3 py-1.5 font-display text-xs md:text-sm font-semibold uppercase tracking-wider text-paper-light hover:bg-oxblood/35 hover:text-white transition-all active:scale-95"
+              >
+                Log Out
+              </button>
             </div>
+          ) : (
+            <button
+              onClick={() => setAuthModalOpen(true)}
+              className="rounded-md bg-brass-gradient px-4 py-2 font-display text-sm font-bold uppercase tracking-wider text-ink shadow-glow hover:brightness-105 active:scale-95 transition-all shrink-0"
+            >
+              Sign In
+            </button>
           )}
         </div>
       </header>
@@ -94,17 +118,24 @@ function App() {
             <MapTracker places={places} onSelectPlace={setSelectedPlace} />
           </div>
 
-          {/* Right Column: List and Leaderboard */}
+          {/* Right Column: List */}
           <div className="flex flex-col gap-6">
             <ListTracker places={places} onSelectPlace={setSelectedPlace} />
-            <Leaderboard />
           </div>
         </div>
+
+        {/* Full-width Hall of Fame */}
+        <Leaderboard />
       </main>
 
       <PlaceModal
         place={selectedPlace}
         onClose={() => setSelectedPlace(null)}
+      />
+
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
       />
 
       <footer className="fixed bottom-0 left-0 w-full text-center py-3 bg-ink/95 backdrop-blur-md border-t-2 border-brass/40" style={{ zIndex: 10 }}>

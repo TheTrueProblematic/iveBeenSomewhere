@@ -3,14 +3,13 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
-// Replace these with actual values from the Firebase Console before production
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
+  apiKey: "AIzaSyDMAZy3wFgvSPphhKudp6vWIRxUD32wtWE",
+  authDomain: "ivebeensomewhere-tp.firebaseapp.com",
+  projectId: "ivebeensomewhere-tp",
+  storageBucket: "ivebeensomewhere-tp.firebasestorage.app",
+  messagingSenderId: "510564565368",
+  appId: "1:510564565368:web:d63cc79464f3c3333fc88d"
 };
 
 const isTestMode = import.meta.env.VITE_TEST_MODE === 'true';

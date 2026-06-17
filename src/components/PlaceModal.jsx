@@ -9,7 +9,7 @@ const TYPE_THEME = {
 };
 
 export default function PlaceModal({ place, onClose }) {
-  const { visitedPlaces, toggleVisited } = useStore();
+  const { visitedPlaces, toggleVisited, user, setAuthModalOpen } = useStore();
   const [burstKey, setBurstKey] = useState(0);
 
   // Reset any lingering celebration when switching places
@@ -24,6 +24,10 @@ export default function PlaceModal({ place, onClose }) {
   const TypeIcon = theme.Icon;
 
   const handleToggle = () => {
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
     const willVisit = !isVisited;
     toggleVisited(place.id);
     if (willVisit) setBurstKey((k) => k + 1);

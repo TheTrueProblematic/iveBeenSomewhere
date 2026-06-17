@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Trophy, Award } from 'lucide-react';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { db, isTestMode } from '../firebase';
 
 // Visual treatment per rank — gold / silver / bronze, then the rest
 const RANK_STYLES = [
@@ -9,13 +11,39 @@ const RANK_STYLES = [
 ];
 
 export default function Leaderboard() {
-  // In a real app, this would fetch from Firestore.
-  // For local testing, we'll display mock data if needed, or just a placeholder.
-  const leaders = [
-    { id: '1', name: 'Johnny Fan', percent: 85 },
-    { id: '2', name: 'Traveler99', percent: 42 },
-    { id: '3', name: 'test-user-123', percent: 0 },
-  ];
+  // Only ever shows real users from Firestore — no mock/placeholder entries.
+  const [leaders, setLeaders] = useState([]);
+
+  useEffect(() => {
+    if (isTestMode) return;
+
+    // Real-time listener for every user in Firestore, ranked by places visited.
+    const q = query(
+      collection(db, 'users'),
+      orderBy('visitedCount', 'desc')
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const list = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const total = 92; // 92 places mentioned in the song
+        const count = data.visitedCount || 0;
+        const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+        list.push({
+          id: doc.id,
+          name: data.username || 'Anonymous',
+          percent: percent
+        });
+      });
+
+      setLeaders(list);
+    }, (err) => {
+      console.error("Firestore leaderboard query error:", err);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="rounded-2xl bg-rail-gradient bg-[length:200%_auto] animate-gradient p-[3px] shadow-card animate-risein">
@@ -27,6 +55,11 @@ export default function Leaderboard() {
           </h2>
           <p className="font-typewriter text-sm text-brass">Who&rsquo;s been everywhere</p>
         </div>
+        {leaders.length === 0 && (
+          <p className="px-4 py-8 text-center font-typewriter text-sm text-ash">
+            No travelers on the board yet &mdash; be the first to mark a place!
+          </p>
+        )}
         <ul className="divide-y divide-ink/10">
           {leaders.map((leader, i) => {
             const rank = RANK_STYLES[i] ?? { badge: 'bg-paper-dark text-ash', bar: 'from-denim to-ash' };
