@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 font-sans antialiased;
+    color: #211c18;
+    background-color: #f1e7d2;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Leaflet map — sepia-toned so it reads like a worn road atlas
+--------------------------------------------------------------------------- */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  z-index: 0;
+  font-family: inherit;
+  background: #e6d8bd;
+}
+.leaflet-tile-pane {
+  filter: sepia(0.5) saturate(0.78) brightness(0.97) contrast(1.03);
+}
+
+/* Unvisited pins read as faded/waiting */
+.unvisited-pin {
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  filter: grayscale(55%) saturate(0.7) drop-shadow(0 3px 3px rgba(33, 28, 24, 0.4));
+  opacity: 0.85;
+}
+.unvisited-pin:hover {
+  filter: grayscale(10%) drop-shadow(0 5px 6px rgba(33, 28, 24, 0.5));
+  opacity: 1;
+}
+
+/* Visited pins carry a warm gold-record glow that gently pulses
+   (filter-only so Leaflet's positioning transform is never overridden) */
+.visited-pin {
+  z-index: 1000 !important;
+  animation: pinGlow 2s ease-in-out infinite;
+}
+@keyframes pinGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 7px rgba(199, 154, 58, 0.65));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(224, 189, 106, 0.95))
+            drop-shadow(0 0 6px rgba(160, 59, 44, 0.7));
+  }
+}
+
+/* Themed leaflet popups — typewritten labels on aged card stock */
+.leaflet-popup-content-wrapper {
+  border-radius: 3px;
+  box-shadow: 0 12px 26px -10px rgba(33, 28, 24, 0.6);
+  border: 1px solid #c79a3a;
+  background: #f7f0e1;
+}
+.leaflet-popup-content {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  color: #7e2b2b;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.leaflet-popup-tip {
+  background: #f7f0e1;
+  box-shadow: 0 12px 26px -10px rgba(33, 28, 24, 0.6);
+}
+
+/* ---------------------------------------------------------------------------
+   Gradient scrollbar (used on the scrollable place list)
+--------------------------------------------------------------------------- */
+.fancy-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #7e2b2b transparent;
+}
+.fancy-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.fancy-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.fancy-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c79a3a, #7e2b2b);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* ---------------------------------------------------------------------------
+   Shimmer sweep used on progress bars
+--------------------------------------------------------------------------- */
+.shimmer-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(247, 240, 225, 0.55),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: sweep 2.8s infinite;
+}
+@keyframes sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Celebration burst rings (modal "mark visited") */
+.burst-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 3px solid currentColor;
+  animation: burst 0.7s ease-out forwards;
+}
+@keyframes burst {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visited-pin,
+  .shimmer-sweep::after,
+  .burst-ring {
+    animation: none !important;
+  }
+}

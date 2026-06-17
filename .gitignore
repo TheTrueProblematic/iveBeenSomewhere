@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.*
+.DS_Store
+fetch_places.py
+initialPrompt.md
+
+# Local editor / tooling config (not part of the web app)
+.claude/launch.json
+.claude/settings.local.json
+.vscode/
+.idea/
+*.log
