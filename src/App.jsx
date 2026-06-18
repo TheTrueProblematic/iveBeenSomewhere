@@ -6,14 +6,14 @@ import PlaceModal from './components/PlaceModal'
 import Leaderboard from './components/Leaderboard'
 import ProgressBanner from './components/ProgressBanner'
 import AuthModal from './components/AuthModal'
+import UserSettingsModal from './components/UserSettingsModal'
 import BackgroundAudio from './components/BackgroundAudio'
-import { auth, isTestMode } from './firebase'
-import { signOut } from 'firebase/auth'
 import { useStore } from './store'
 
 function App() {
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [userSettingsOpen, setUserSettingsOpen] = useState(false);
   const { visitedPlaces, user, authModalOpen, setAuthModalOpen, audioMuted, toggleAudioMuted } = useStore();
 
   useEffect(() => {
@@ -81,29 +81,20 @@ function App() {
             {audioMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
           </button>
           {user ? (
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4">
-                <span className="grid h-8 w-8 place-items-center rounded-sm bg-brass-gradient font-display text-sm font-bold text-ink">
-                  {(user.displayName || '?').charAt(0).toUpperCase()}
-                </span>
-                <span className="hidden sm:block font-typewriter text-sm">
-                  <span className="text-paper/60">Howdy, </span>
-                  <span className="font-bold text-paper-light">{user.displayName}</span>
-                </span>
-              </div>
-              <button
-                onClick={() => {
-                  if (!isTestMode) {
-                    signOut(auth).catch(err => console.error("Logout error:", err));
-                  } else {
-                    alert("Running in test mode. Logout disabled.");
-                  }
-                }}
-                className="rounded-md border border-oxblood/40 bg-oxblood/10 px-3 py-1.5 font-display text-xs md:text-sm font-semibold uppercase tracking-wider text-paper-light hover:bg-oxblood/35 hover:text-white transition-all active:scale-95"
-              >
-                Log Out
-              </button>
-            </div>
+            <button
+              onClick={() => setUserSettingsOpen(true)}
+              aria-label="Open user settings"
+              title="User settings"
+              className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4 shrink-0 transition-all hover:bg-coal hover:border-brass/60 active:scale-95"
+            >
+              <span className="grid h-8 w-8 place-items-center rounded-sm bg-brass-gradient font-display text-sm font-bold text-ink">
+                {(user.displayName || '?').charAt(0).toUpperCase()}
+              </span>
+              <span className="hidden sm:block font-typewriter text-sm">
+                <span className="text-paper/60">Howdy, </span>
+                <span className="font-bold text-paper-light">{user.displayName}</span>
+              </span>
+            </button>
           ) : (
             <button
               onClick={() => setAuthModalOpen(true)}
@@ -147,6 +138,11 @@ function App() {
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
+      />
+
+      <UserSettingsModal
+        isOpen={userSettingsOpen}
+        onClose={() => setUserSettingsOpen(false)}
       />
 
       {/* Quiet, gapless background music: intro then seamless loop */}

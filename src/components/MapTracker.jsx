@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Map as MapIcon } from 'lucide-react';
+import { Map as MapIcon, Maximize2, Minimize2 } from 'lucide-react';
 import { useStore } from '../store';
 
 // Custom Johnny Cash icons — visited pins are noticeably larger so they pop
@@ -26,6 +26,32 @@ const visitedIcon = L.icon({
 
 export default function MapTracker({ places, onSelectPlace }) {
   const { visitedPlaces } = useStore();
+  const cardRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Keep React state in sync with the actual fullscreen element, and tell
+  // Leaflet to recompute its dimensions whenever the map area resizes.
+  useEffect(() => {
+    const handleChange = () => {
+      const active = document.fullscreenElement === cardRef.current;
+      setIsFullscreen(active);
+      if (map) {
+        // Wait for the browser to finish the resize before invalidating.
+        setTimeout(() => map.invalidateSize(), 100);
+      }
+    };
+    document.addEventListener('fullscreenchange', handleChange);
+    return () => document.removeEventListener('fullscreenchange', handleChange);
+  }, [map]);
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.();
+    } else {
+      cardRef.current?.requestFullscreen?.();
+    }
+  };
 
   const renderPlaces = (offset = 0) => {
     return places.map((place) => {
@@ -91,7 +117,10 @@ export default function MapTracker({ places, onSelectPlace }) {
 
   return (
     <div className="rounded-2xl bg-rail-gradient bg-[length:200%_auto] animate-gradient p-[3px] shadow-card animate-risein">
-      <div className="overflow-hidden rounded-[0.85rem] bg-paper-light/95">
+      <div
+        ref={cardRef}
+        className={`overflow-hidden bg-paper-light/95 ${isFullscreen ? 'flex h-full flex-col rounded-none' : 'rounded-[0.85rem]'}`}
+      >
         {/* Map header + legend */}
         <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-ink/10 bg-ink/95">
           <h2 className="flex items-center gap-2 font-display text-lg font-semibold uppercase tracking-wide text-paper-light">
@@ -107,12 +136,21 @@ export default function MapTracker({ places, onSelectPlace }) {
               <span className="h-3 w-3 rounded-full bg-denim/80" />
               Still to explore
             </span>
+            <button
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? 'Exit fullscreen' : 'View map fullscreen'}
+              title={isFullscreen ? 'Exit fullscreen' : 'View map fullscreen'}
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-brass/30 bg-coal/80 text-brass transition-all hover:bg-coal hover:text-gold active:scale-95"
+            >
+              {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+            </button>
           </div>
         </div>
 
         {/* MinZoom restricts zooming out past ~3 worlds; maxBounds restricts panning */}
-        <div className="h-[560px] w-full">
+        <div className={isFullscreen ? 'min-h-0 flex-1 w-full' : 'h-[560px] w-full'}>
           <MapContainer
+            ref={setMap}
             center={[39.8283, -98.5795]}
             zoom={4}
             minZoom={2}

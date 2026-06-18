@@ -25,11 +25,12 @@
   filter: sepia(0.5) saturate(0.78) brightness(0.97) contrast(1.03);
 }
 
-/* Unvisited pins read as faded/waiting */
+/* Unvisited pins read as faded/waiting — near fully desaturated so visited
+   (full-color, glowing) pins stand out sharply against them */
 .unvisited-pin {
   transition: filter 0.3s ease, opacity 0.3s ease;
-  filter: grayscale(55%) saturate(0.7) drop-shadow(0 3px 3px rgba(33, 28, 24, 0.4));
-  opacity: 0.85;
+  filter: grayscale(100%) saturate(0.15) brightness(0.95) drop-shadow(0 3px 3px rgba(33, 28, 24, 0.4));
+  opacity: 0.7;
 }
 .unvisited-pin:hover {
   filter: grayscale(10%) drop-shadow(0 5px 6px rgba(33, 28, 24, 0.5));
