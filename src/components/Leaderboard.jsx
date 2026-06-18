@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Trophy, Award } from 'lucide-react';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db, isTestMode } from '../firebase';
+import Avatar from './Avatar';
 
 // Visual treatment per rank — gold / silver / bronze, then the rest
 const RANK_STYLES = [
@@ -10,7 +11,7 @@ const RANK_STYLES = [
   { badge: 'bg-gradient-to-br from-rust to-oxblood text-paper-light', bar: 'from-oxblood to-rust' },
 ];
 
-export default function Leaderboard() {
+export default function Leaderboard({ total = 0 }) {
   // Only ever shows real users from Firestore — no mock/placeholder entries.
   const [leaders, setLeaders] = useState([]);
 
@@ -27,13 +28,13 @@ export default function Leaderboard() {
       const list = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
-        const total = 92; // 92 places mentioned in the song
-        const count = data.visitedCount || 0;
-        const percent = total > 0 ? Math.round((count / total) * 100) : 0;
         list.push({
           id: doc.id,
           name: data.username || 'Anonymous',
-          percent: percent
+          profileImage: data.profileImage || null,
+          // Store the raw count; percentage is computed at render time against
+          // the same total the header uses, so the two always agree.
+          count: data.visitedCount || 0
         });
       });
 
@@ -63,6 +64,8 @@ export default function Leaderboard() {
         <ul className="divide-y divide-ink/10">
           {leaders.map((leader, i) => {
             const rank = RANK_STYLES[i] ?? { badge: 'bg-paper-dark text-ash', bar: 'from-denim to-ash' };
+            // Same formula and rounding as the header banner, so they match.
+            const percent = total > 0 ? Math.round((leader.count / total) * 100) : 0;
             return (
               <li key={leader.id} className="flex items-center gap-3 p-4">
                 <span className={`relative grid h-9 w-9 shrink-0 place-items-center rounded-sm font-display text-base font-bold ${rank.badge}`}>
@@ -71,17 +74,24 @@ export default function Leaderboard() {
                     <Award className="absolute -top-3 left-1/2 h-4 w-4 -translate-x-1/2 text-brass fill-gold animate-float" />
                   )}
                 </span>
+                <Avatar
+                  name={leader.name}
+                  profileImage={leader.profileImage}
+                  className={`h-10 w-10 shrink-0 overflow-hidden rounded-sm text-lg ${
+                    i === 0 ? 'ring-2 ring-gold/60' : 'ring-1 ring-ink/10'
+                  }`}
+                />
                 <div className="min-w-0 flex-1">
                   <span className="block truncate font-display text-base font-semibold text-ink">{leader.name}</span>
                   <div className="mt-1.5 flex items-center gap-2">
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-paper-dark">
                       <div
                         className={`h-full rounded-full bg-gradient-to-r ${rank.bar} transition-[width] duration-700 ease-out`}
-                        style={{ width: `${leader.percent}%` }}
+                        style={{ width: `${percent}%` }}
                       />
                     </div>
                     <span className="w-10 shrink-0 text-right font-typewriter text-sm font-bold text-ash">
-                      {leader.percent}%
+                      {percent}%
                     </span>
                   </div>
                 </div>

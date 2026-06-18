@@ -12,3 +12,6 @@ initialPrompt.md
 .vscode/
 .idea/
 *.log
+
+# Local-only dev/test helpers (not part of the web app)
+localTests/

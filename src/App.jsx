@@ -8,13 +8,15 @@ import ProgressBanner from './components/ProgressBanner'
 import AuthModal from './components/AuthModal'
 import UserSettingsModal from './components/UserSettingsModal'
 import BackgroundAudio from './components/BackgroundAudio'
+import Avatar from './components/Avatar'
 import { useStore } from './store'
 
 function App() {
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [userSettingsOpen, setUserSettingsOpen] = useState(false);
-  const { visitedPlaces, user, authModalOpen, setAuthModalOpen, audioMuted, toggleAudioMuted } = useStore();
+  const { visitedPlaces, user, username, profileImage, authModalOpen, setAuthModalOpen, audioMuted, toggleAudioMuted } = useStore();
+  const displayName = username || user?.displayName;
 
   useEffect(() => {
     fetch('/places.json')
@@ -87,12 +89,14 @@ function App() {
               title="User settings"
               className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4 shrink-0 transition-all hover:bg-coal hover:border-brass/60 active:scale-95"
             >
-              <span className="grid h-8 w-8 place-items-center rounded-sm bg-brass-gradient font-display text-sm font-bold text-ink">
-                {(user.displayName || '?').charAt(0).toUpperCase()}
-              </span>
+              <Avatar
+                name={displayName}
+                profileImage={profileImage}
+                className="h-8 w-8 overflow-hidden rounded-sm text-sm"
+              />
               <span className="hidden sm:block font-typewriter text-sm">
                 <span className="text-paper/60">Howdy, </span>
-                <span className="font-bold text-paper-light">{user.displayName}</span>
+                <span className="font-bold text-paper-light">{displayName}</span>
               </span>
             </button>
           ) : (
@@ -127,7 +131,7 @@ function App() {
         </div>
 
         {/* Full-width Hall of Fame */}
-        <Leaderboard />
+        <Leaderboard total={places.length} />
       </main>
 
       <PlaceModal

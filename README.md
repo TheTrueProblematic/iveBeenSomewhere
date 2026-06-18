@@ -9,7 +9,8 @@ Live: https://ivebeensomewhere-tp.web.app
 - **Interactive Map**: Shows cities as pins and states/countries as highlighted polygons, with a fullscreen view. Visited places glow gold; unvisited places are dimmed to near-monochrome so your progress stands out.
 - **List View**: Chronological list of everywhere Cash has been.
 - **Dynamic Leaderboard**: Global leaderboard tracking percentage of places visited.
-- **Accounts**: Secure account creation to track your personal journey. Your user icon opens a settings menu (currently holding Log Out).
+- **Accounts**: Secure account creation to track your personal journey. Your user icon opens a settings menu where you can change your username, pick a profile picture, change your password, log out, or delete your account.
+- **Profile pictures**: Choose from preset avatars (drop square `.webp` files into `src/ProfileImages/` — they appear as options automatically) or keep your monogram.
 - **Background Audio**: Optional, mutable vintage soundtrack.
 
 ## Tech Stack

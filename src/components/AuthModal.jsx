@@ -4,6 +4,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfi
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { useStore } from '../store';
+import { isProtectedUsername } from '../reservedNames';
+import { isProfaneUsername } from '../profanityFilter';
 
 export default function AuthModal({ isOpen, onClose }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -39,6 +41,21 @@ export default function AuthModal({ isOpen, onClose }) {
 
     if (password.length < 6) {
       setError('Password must be at least 6 characters long.');
+      setLoading(false);
+      return;
+    }
+
+    // Block sign-ups that impersonate the reserved handle (or look-alikes).
+    // Sign-in is left alone so the legitimate owner can still log in.
+    if (isSignUp && isProtectedUsername(formattedUsername)) {
+      setError('That username is reserved. Please choose another.');
+      setLoading(false);
+      return;
+    }
+
+    // Block sign-ups with profane or hateful usernames.
+    if (isSignUp && isProfaneUsername(formattedUsername)) {
+      setError('That username is not allowed. Please choose another.');
       setLoading(false);
       return;
     }
