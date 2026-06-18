@@ -28,6 +28,19 @@
             "value": "no-cache, no-store, must-revalidate"
           }
         ]
+      },
+      {
+        "source": "**/*.weba",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "audio/webm"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=604800"
+          }
+        ]
       }
     ],
     "rewrites": [

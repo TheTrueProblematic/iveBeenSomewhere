@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Guitar, Route } from 'lucide-react'
+import { Guitar, Route, Volume2, VolumeX } from 'lucide-react'
 import MapTracker from './components/MapTracker'
 import ListTracker from './components/ListTracker'
 import PlaceModal from './components/PlaceModal'
 import Leaderboard from './components/Leaderboard'
 import ProgressBanner from './components/ProgressBanner'
 import AuthModal from './components/AuthModal'
+import BackgroundAudio from './components/BackgroundAudio'
 import { auth, isTestMode } from './firebase'
 import { signOut } from 'firebase/auth'
 import { useStore } from './store'
@@ -13,7 +14,7 @@ import { useStore } from './store'
 function App() {
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const { visitedPlaces, user, authModalOpen, setAuthModalOpen } = useStore();
+  const { visitedPlaces, user, authModalOpen, setAuthModalOpen, audioMuted, toggleAudioMuted } = useStore();
 
   useEffect(() => {
     fetch('/places.json')
@@ -70,6 +71,15 @@ function App() {
             </div>
           </div>
 
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button
+            onClick={toggleAudioMuted}
+            aria-label={audioMuted ? 'Turn music on' : 'Turn music off'}
+            title={audioMuted ? 'Turn music on' : 'Turn music off'}
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-brass/30 bg-coal/80 text-brass transition-all hover:bg-coal hover:text-gold active:scale-95"
+          >
+            {audioMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+          </button>
           {user ? (
             <div className="flex items-center gap-3 shrink-0">
               <div className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4">
@@ -102,6 +112,7 @@ function App() {
               Sign In
             </button>
           )}
+          </div>
         </div>
       </header>
 
@@ -136,6 +147,13 @@ function App() {
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
+      />
+
+      {/* Quiet, gapless background music: intro then seamless loop */}
+      <BackgroundAudio
+        startSrc="/RagtimeBumpStart.weba"
+        loopSrc="/RagtimeBumpLoop.weba"
+        volume={0.2}
       />
 
       <footer className="fixed bottom-0 left-0 w-full text-center py-3 bg-ink/95 backdrop-blur-md border-t-2 border-brass/40" style={{ zIndex: 10 }}>

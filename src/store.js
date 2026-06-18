@@ -8,11 +8,17 @@ export const useStore = create((set, get) => ({
   visitedPlaces: new Set(),
   loading: true,
   authModalOpen: false,
+  audioMuted: typeof localStorage !== 'undefined' && localStorage.getItem('audioMuted') === 'true',
 
   setUser: (user) => set({ user }),
   setVisitedPlaces: (placesList) => set({ visitedPlaces: new Set(placesList), loading: false }),
   setLoading: (loading) => set({ loading }),
   setAuthModalOpen: (authModalOpen) => set({ authModalOpen }),
+  toggleAudioMuted: () => set((state) => {
+    const audioMuted = !state.audioMuted;
+    try { localStorage.setItem('audioMuted', String(audioMuted)); } catch (_) { /* ignore */ }
+    return { audioMuted };
+  }),
 
   toggleVisited: async (placeId) => {
     const { visitedPlaces, user } = get();
