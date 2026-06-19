@@ -210,13 +210,18 @@ export default function UserSettingsModal({ isOpen, onClose }) {
     }
 
     setBusy(true);
+    // Suppress the store's auth-doc listener from re-creating the user doc the
+    // instant we delete it (that race left orphaned 0% leaderboard entries).
+    useStore.getState().setDeletingAccount(true);
     try {
       // Re-authenticate (also serves as the confirmation) before deleting.
       const credential = EmailAuthProvider.credential(user.email, deletePw);
       await reauthenticateWithCredential(user, credential);
 
       const oldLower = (user.email || '').split('@')[0];
-      // Clear Firestore data while still authenticated.
+      // Clear ALL Firestore data while still authenticated: the private visited
+      // subdoc, the public profile doc, and the username reservation.
+      await deleteDoc(doc(db, 'users', user.uid, 'private', 'visited')).catch(() => {});
       await deleteDoc(doc(db, 'users', user.uid)).catch(() => {});
       if (oldLower) await deleteDoc(doc(db, 'usernames', oldLower)).catch(() => {});
 
@@ -235,6 +240,10 @@ export default function UserSettingsModal({ isOpen, onClose }) {
         setError(err.message || 'Could not delete account.');
       }
       setBusy(false);
+    } finally {
+      // Safe to clear now: either the user is signed out (rules block any
+      // re-create) or the deletion failed and nothing was removed.
+      useStore.getState().setDeletingAccount(false);
     }
   };
 

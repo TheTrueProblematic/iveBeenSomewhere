@@ -1,0 +1,19 @@
+{
+  "name": "ivebeensomewhere-functions",
+  "description": "Trusted backend for iveBeenSomewhere: grades the password-reset identity quiz and performs the actual Firebase Auth password reset with the Admin SDK.",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "serve": "firebase emulators:start --only functions,firestore",
+    "deploy": "firebase deploy --only functions",
+    "migrate": "node scripts/migrateVisited.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  }
+}

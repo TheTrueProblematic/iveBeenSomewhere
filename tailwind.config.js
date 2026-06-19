@@ -77,6 +77,11 @@ export default {
           '0%': { transform: 'translateY(14px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        // Slower, gentler entrance for the "Forgot Password?" reveal — a calm fade.
+        fadeInUp: {
+          '0%': { transform: 'translateY(8px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
       },
       animation: {
         gradient: 'gradient 8s ease infinite',
@@ -87,6 +92,7 @@ export default {
         wiggle: 'wiggle 0.9s ease-in-out infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
         risein: 'risein 0.5s ease-out both',
+        'fade-in-up': 'fadeInUp 0.8s ease-out both',
       },
     },
   },

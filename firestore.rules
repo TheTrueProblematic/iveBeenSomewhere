@@ -13,8 +13,19 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
+      // Public, but ONLY the leaderboard fields live here now (username,
+      // visitedCount, profileImage, leaderboardHidden). The visited LIST has
+      // been moved to the owner-only private subdoc below so it can't be read
+      // by anyone wanting to cheat the password-reset quiz.
       allow read: if true;
       allow write: if isUser(userId);
+
+      // The actual visited list — readable/writable only by its owner. The
+      // trusted backend reads it with the Admin SDK (which bypasses these rules)
+      // to grade the reset quiz; no other client can see it.
+      match /private/{document=**} {
+        allow read, write: if isUser(userId);
+      }
     }
 
     match /usernames/{username} {
@@ -23,6 +34,19 @@ service cloud.firestore {
       allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid;
       // Owners may release their own reservation (used when renaming or deleting an account)
       allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+    }
+
+    // Password-reset session state: answer keys, attempt counters, lockout flags
+    // and one-time reset tokens. The answer key and counts stay secret and
+    // tamper-proof — clients may NOT read, create or update these (only the
+    // trusted backend, via the Admin SDK, does). The ONE exception: a signed-in
+    // user may DELETE their own session. That is how "sign in to unlock" works —
+    // a successful login (which proves they know the password) lets the user
+    // clear their own lockout/attempt state directly, robustly, with no Cloud
+    // Function in the path. An attacker mid-reset is unauthenticated, so cannot.
+    match /resetSessions/{userId} {
+      allow read, create, update: if false;
+      allow delete: if isUser(userId);
     }
   }
 }

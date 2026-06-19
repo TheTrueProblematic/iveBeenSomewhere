@@ -34,22 +34,42 @@ export default function MapTracker({ places, onSelectPlace }) {
   // Leaflet to recompute its dimensions whenever the map area resizes.
   useEffect(() => {
     const handleChange = () => {
-      const active = document.fullscreenElement === cardRef.current;
+      const active = !!(document.fullscreenElement || document.webkitFullscreenElement);
       setIsFullscreen(active);
       if (map) {
-        // Wait for the browser to finish the resize before invalidating.
         setTimeout(() => map.invalidateSize(), 100);
       }
     };
     document.addEventListener('fullscreenchange', handleChange);
-    return () => document.removeEventListener('fullscreenchange', handleChange);
+    document.addEventListener('webkitfullscreenchange', handleChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleChange);
+      document.removeEventListener('webkitfullscreenchange', handleChange);
+    };
   }, [map]);
 
   const toggleFullscreen = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen?.();
+    if (isFullscreen) {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        setIsFullscreen(false);
+        if (map) setTimeout(() => map.invalidateSize(), 100);
+      }
     } else {
-      cardRef.current?.requestFullscreen?.();
+      const el = cardRef.current;
+      if (el?.requestFullscreen) {
+        el.requestFullscreen().catch(() => {
+          setIsFullscreen(true);
+          if (map) setTimeout(() => map.invalidateSize(), 100);
+        });
+      } else if (el?.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else {
+        setIsFullscreen(true);
+        if (map) setTimeout(() => map.invalidateSize(), 100);
+      }
     }
   };
 
@@ -116,10 +136,10 @@ export default function MapTracker({ places, onSelectPlace }) {
   };
 
   return (
-    <div className="rounded-2xl bg-rail-gradient bg-[length:200%_auto] animate-gradient p-[3px] shadow-card animate-risein">
+    <div className={`rounded-2xl bg-rail-gradient bg-[length:200%_auto] animate-gradient p-[3px] shadow-card ${isFullscreen ? '' : 'animate-risein'}`}>
       <div
         ref={cardRef}
-        className={`overflow-hidden bg-paper-light/95 ${isFullscreen ? 'flex h-full flex-col rounded-none' : 'rounded-[0.85rem]'}`}
+        className={`overflow-hidden bg-paper-light/95 ${isFullscreen ? 'fixed inset-0 z-[9999] flex flex-col rounded-none' : 'rounded-[0.85rem]'}`}
       >
         {/* Map header + legend */}
         <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 border-b border-ink/10 bg-ink/95">
@@ -155,6 +175,7 @@ export default function MapTracker({ places, onSelectPlace }) {
             zoom={4}
             minZoom={2}
             maxBounds={[[-90, -540], [90, 540]]}
+            dragging={!L.Browser.mobile || isFullscreen}
             className="w-full h-full"
           >
             <TileLayer

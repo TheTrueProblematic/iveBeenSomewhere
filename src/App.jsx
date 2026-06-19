@@ -66,9 +66,9 @@ function App() {
               <h1 className="font-display text-2xl md:text-4xl font-bold uppercase tracking-[0.08em] text-paper-light transition-all duration-500">
                 {title}
               </h1>
-              <p className="hidden sm:flex items-center gap-1.5 font-typewriter text-xs md:text-sm tracking-wide text-brass">
-                <Route className="h-3.5 w-3.5 text-brass" />
-                Everywhere&hellip;according to Johnny Cash
+              <p className="flex items-center gap-1.5 font-typewriter text-[0.65rem] sm:text-xs md:text-sm tracking-wide text-brass mt-0.5 leading-tight">
+                <Route className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brass shrink-0" />
+                <span>Your journey to <span className="text-gold" style={{ textShadow: '0 0 8px rgba(224, 189, 106, 0.6)' }}>Everywhere</span>&hellip;at least according to Johnny Cash</span>
               </p>
             </div>
           </div>
@@ -87,12 +87,12 @@ function App() {
               onClick={() => setUserSettingsOpen(true)}
               aria-label="Open user settings"
               title="User settings"
-              className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-4 shrink-0 transition-all hover:bg-coal hover:border-brass/60 active:scale-95"
+              className="flex items-center gap-2 rounded-md border border-brass/30 bg-coal/80 py-1.5 pl-1.5 pr-1.5 sm:pr-4 shrink-0 transition-all hover:bg-coal hover:border-brass/60 active:scale-95"
             >
               <Avatar
                 name={displayName}
                 profileImage={profileImage}
-                className="h-8 w-8 overflow-hidden rounded-sm text-sm"
+                className="h-8 w-8 overflow-hidden rounded-sm text-sm border border-ink ring-1 ring-ink/20"
               />
               <span className="hidden sm:block font-typewriter text-sm">
                 <span className="text-paper/60">Howdy, </span>
@@ -142,6 +142,7 @@ function App() {
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
+        places={places}
       />
 
       <UserSettingsModal

@@ -1,0 +1,548 @@
+[
+{
+"id": "0",
+"name": "Reno",
+"type": "city",
+"desc": "The immortal lyric \"I shot a man in Reno just to watch him die\" was penned here by Johnny Cash for his song \"Folsom Prison Blues\" (1955)."
+},
+{
+"id": "1",
+"name": "Chicago",
+"type": "city",
+"desc": "Massive arena crowds greeted Cash during his heavy touring schedules here throughout the 1960s and 1970s."
+},
+{
+"id": "2",
+"name": "Fargo",
+"type": "city",
+"desc": "A documented concert at a Fargo venue was played by Johnny Cash on November 1, 1974."
+},
+{
+"id": "3",
+"name": "Minnesota",
+"type": "state",
+"desc": "Extensive touring across the state kept Cash busy with live radio sessions and venue dates throughout the mid-1950s and 1970s."
+},
+{
+"id": "4",
+"name": "Buffalo",
+"type": "city",
+"desc": "Bringing his traveling roadshow to town, Johnny Cash packed the Buffalo Memorial Auditorium in 1971."
+},
+{
+"id": "5",
+"name": "Toronto",
+"type": "city",
+"desc": "Following his famous on-stage proposal to June Carter nearby in February 1968, Cash played Toronto's Maple Leaf Gardens later that year."
+},
+{
+"id": "6",
+"name": "Winslow",
+"type": "city",
+"desc": "This desert town was a frequent transit stop when Johnny Cash drove his early southwestern vehicle tours in the late 1950s."
+},
+{
+"id": "7",
+"name": "Sarasota",
+"type": "city",
+"desc": "The Robarts Sports Arena hosted Cash during his winter Florida concert sweeps in January 1975."
+},
+{
+"id": "8",
+"name": "Wichita",
+"type": "city",
+"desc": "Performing at the Wichita Forum, Johnny Cash hit local concert halls during his midwestern sweeps in the 1960s and 1970s."
+},
+{
+"id": "9",
+"name": "Tulsa",
+"type": "city",
+"desc": "The Tulsa Assembly Center frequently hosted Cash for recorded live performances during his peak touring years in 1971."
+},
+{
+"id": "10",
+"name": "Ottawa",
+"type": "city",
+"desc": "Headlining a major performance at the Central Canada Exhibition, Johnny Cash brought his tour to Ottawa in August 1973."
+},
+{
+"id": "11",
+"name": "Oklahoma",
+"type": "state",
+"desc": "Playing state fairs and city arenas became a regular routine for Cash in this state, starting early in his career in 1956."
+},
+{
+"id": "12",
+"name": "Tampa",
+"type": "city",
+"desc": "The Tampa Armory hosted an early rockabilly promotional tour by Johnny Cash in 1957."
+},
+{
+"id": "13",
+"name": "Panama",
+"type": "country",
+"desc": "During his military service years and international travels in the early 1950s, Cash spent time visiting Panama."
+},
+{
+"id": "14",
+"name": "Mattawa",
+"type": "city",
+"desc": "This small logging town was a passing point when Johnny Cash mapped out intensive Canadian transit routes in the late 1960s."
+},
+{
+"id": "15",
+"name": "La Paloma",
+"type": "city",
+"desc": "This coastal region became familiar territory for Cash during his extensive South American tour stops in the 1970s."
+},
+{
+"id": "16",
+"name": "Bangor",
+"type": "city",
+"desc": "The Bangor Auditorium was sold out by Johnny Cash during his northeastern stadium sweeps in the early 1970s."
+},
+{
+"id": "17",
+"name": "Baltimore",
+"type": "city",
+"desc": "High-energy national tours in 1969 and 1973 saw Cash completely pack out the Baltimore Civic Center."
+},
+{
+"id": "18",
+"name": "Salvador",
+"type": "country",
+"desc": "International concert schedules brought Johnny Cash to Brazil for an extended promotional visit in the mid-1970s."
+},
+{
+"id": "19",
+"name": "Amarillo",
+"type": "city",
+"desc": "The Amarillo City Auditorium hosted Cash during his early Sun Records package tours in 1956."
+},
+{
+"id": "20",
+"name": "Tocopilla",
+"type": "city",
+"desc": "Global expansion concert series in the 1970s led Johnny Cash to tour through Chile and South America."
+},
+{
+"id": "21",
+"name": "Barranquilla",
+"type": "city",
+"desc": "South American promotional circuits in the mid-1970s included a stop for Cash in Colombia."
+},
+{
+"id": "22",
+"name": "Padilla",
+"type": "city",
+"desc": "International outreach tours in the 1970s required Johnny Cash to pass through this South American region."
+},
+{
+"id": "23",
+"name": "Boston",
+"type": "city",
+"desc": "The Boston Garden hosted Cash during a massive multi-artist package tour in 1971."
+},
+{
+"id": "24",
+"name": "Charleston",
+"type": "city",
+"desc": "Performing at the Charleston Civic Center across multiple decades, Johnny Cash booked notable shows here in 1969 and 1976."
+},
+{
+"id": "25",
+"name": "Dayton",
+"type": "city",
+"desc": "Massive crowds gathered at the Dayton Hara Arena to see Cash during his peak television show era in 1970."
+},
+{
+"id": "26",
+"name": "Louisiana",
+"type": "state",
+"desc": "Joining the Louisiana Hayride radio program as a regular cast member in 1954 launched the early musical career of Johnny Cash."
+},
+{
+"id": "27",
+"name": "Washington",
+"type": "city",
+"desc": "A high-profile gig at the White House for President Richard Nixon on April 17, 1970, saw Cash perform his socially conscious tracks."
+},
+{
+"id": "28",
+"name": "Houston",
+"type": "city",
+"desc": "Playing the Houston Coliseum regularly, Johnny Cash shared a legendary early billing here with Elvis Presley in 1955."
+},
+{
+"id": "29",
+"name": "Kingston",
+"type": "city",
+"desc": "An historic, 18th-century plantation home called Cinnamon Hill Great House was purchased near Kingston by Cash, serving as his creative sanctuary for decades."
+},
+{
+"id": "30",
+"name": "Texarkana",
+"type": "city",
+"desc": "The Texarkana Arkansas Municipal Auditorium hosted Johnny Cash during his breakout tour year in 1955."
+},
+{
+"id": "31",
+"name": "Monterey",
+"type": "city",
+"desc": "California regional theater tours in the early 1960s brought Cash to the Monterey Peninsula."
+},
+{
+"id": "32",
+"name": "Ferriday",
+"type": "city",
+"desc": "Visiting this town to jam with Sun Records labelmate Jerry Lee Lewis was a regular habit for Johnny Cash, who later recorded the Class of '55 collaborative album."
+},
+{
+"id": "33",
+"name": "Santa Fe",
+"type": "city",
+"desc": "Early package tours through New Mexico brought Cash to the Santa Fe area for a live date in 1957."
+},
+{
+"id": "34",
+"name": "Tallapoosa",
+"type": "city",
+"desc": "Deep South concert circuits in the late 1950s led Johnny Cash to travel directly through this Georgia town."
+},
+{
+"id": "35",
+"name": "Glen Rock",
+"type": "city",
+"desc": "East Coast theater runs in the 1970s took Cash near this region during a thorough tour of Pennsylvania."
+},
+{
+"id": "36",
+"name": "Black Rock",
+"type": "city",
+"desc": "Traveling between Memphis and his home state during the 1950s caused Johnny Cash to pass through this Arkansas region frequently."
+},
+{
+"id": "37",
+"name": "Little Rock",
+"type": "city",
+"desc": "The Robinson Auditorium hosted Cash multiple times, starting with his early country music tours in 1956."
+},
+{
+"id": "38",
+"name": "Oskaloosa",
+"type": "city",
+"desc": "Intensive heartland tours in the 1960s saw Johnny Cash playing rural Iowa fairs and community centers near here."
+},
+{
+"id": "39",
+"name": "Tennessee",
+"type": "state",
+"desc": "Making Hendersonville and Nashville his permanent home base, Cash lived and recorded in the state from the late 1950s onward."
+},
+{
+"id": "40",
+"name": "Hennessey",
+"type": "city",
+"desc": "Frequent cross-country road trips in the late 1950s brought Johnny Cash through this Oklahoma town."
+},
+{
+"id": "41",
+"name": "Chicopee",
+"type": "city",
+"desc": "New England auditorium sweeps in 1971 brought Cash to western Massachusetts venues near this town."
+},
+{
+"id": "42",
+"name": "Spirit Lake",
+"type": "city",
+"desc": "The Iowa Great Lakes region hosted a summer tour date for Johnny Cash, who played ballrooms near here in the 1960s."
+},
+{
+"id": "43",
+"name": "Grand Lake",
+"type": "city",
+"desc": "Recreation and regional performances throughout the 1970s brought Cash to Colorado's mountain regions."
+},
+{
+"id": "44",
+"name": "Devil's Lake",
+"type": "city",
+"desc": "A city in North Dakota."
+},
+{
+"id": "45",
+"name": "Crater Lake",
+"type": "city",
+"desc": "Vacation time spent exploring the Pacific Northwest wilderness allowed Cash to film regional television footage here in the 1970s."
+},
+{
+"id": "46",
+"name": "Louisville",
+"type": "city",
+"desc": "Freedom Hall in Louisville hosted Johnny Cash during his high-demand stadium years in 1970 and 1971."
+},
+{
+"id": "47",
+"name": "Nashville",
+"type": "city",
+"desc": "Performing regularly at the Grand Ole Opry at the Ryman Auditorium in the 1950s and 1960s made this city the primary recording hub for Cash."
+},
+{
+"id": "48",
+"name": "Knoxville",
+"type": "city",
+"desc": "Southern regional sweeps in 1972 brought Johnny Cash to the Knoxville Civic Coliseum."
+},
+{
+"id": "49",
+"name": "Ombabika",
+"type": "city",
+"desc": "Remote rail lines of Northern Ontario were explored by Cash during his expansive Canadian wilderness hunting trips and acoustic tours in the late 1960s."
+},
+{
+"id": "50",
+"name": "Schefferville",
+"type": "city",
+"desc": "Traveling deep into Northern Quebec for isolated Canadian tours and outdoor excursions kept Johnny Cash busy in the 1970s."
+},
+{
+"id": "51",
+"name": "Jacksonville",
+"type": "city",
+"desc": "A series of major road tours through Jacksonville started early for Cash during his breakout performances in 1957."
+},
+{
+"id": "52",
+"name": "Waterville",
+"type": "city",
+"desc": "New England university and auditorium tours in 1971 featured a performance by Johnny Cash in central Maine."
+},
+{
+"id": "53",
+"name": "Costa Rica",
+"type": "country",
+"desc": "Latin American goodwill and concert tours in the mid-1970s included a visit to San José by Cash."
+},
+{
+"id": "54",
+"name": "Pittsfield",
+"type": "city",
+"desc": "Massive Massachusetts arena sweeps in 1971 brought Johnny Cash to the Berkshire county region."
+},
+{
+"id": "55",
+"name": "Springfield",
+"type": "city",
+"desc": "Frequent Midwestern tours throughout the 1970s saw Cash perform at the Springfield Civic Center in Missouri."
+},
+{
+"id": "56",
+"name": "Bakersfield",
+"type": "city",
+"desc": "Deeply influencing the local country music scene, Johnny Cash performed legendary regional concerts here in 1958."
+},
+{
+"id": "57",
+"name": "Shreveport",
+"type": "city",
+"desc": "Securing his first major recurring checks and radio exposure, Cash broadcasted live from the Municipal Auditorium here for the Louisiana Hayride."
+},
+{
+"id": "58",
+"name": "Hackensack",
+"type": "city",
+"desc": "East Coast sweeps in the 1970s brought Johnny Cash to various theater and arena dates across Northern New Jersey."
+},
+{
+"id": "59",
+"name": "Cadillac",
+"type": "city",
+"desc": "A legendary high school gym concert in Cadillac, Michigan, was played by Cash during his northern rust-belt tour stops in 1975."
+},
+{
+"id": "60",
+"name": "Fond du Lac",
+"type": "city",
+"desc": "Upper Midwest circuits in the 1970s involved Johnny Cash playing county fairs and community venues in this Wisconsin region."
+},
+{
+"id": "61",
+"name": "Davenport",
+"type": "city",
+"desc": "Large crowds packed local theaters in Davenport, Iowa, to see Cash during his 1968 heartland tours."
+},
+{
+"id": "62",
+"name": "Idaho",
+"type": "state",
+"desc": "Pacific Northwest sweeps in 1963 and 1972 took Johnny Cash to the Boise and Idaho Falls markets."
+},
+{
+"id": "63",
+"name": "Jellico",
+"type": "city",
+"desc": "Crossing the Tennessee-Kentucky border through this mountain town was a regular occurrence for Cash while traveling the Dixie Highway on early tours."
+},
+{
+"id": "64",
+"name": "Argentina",
+"type": "country",
+"desc": "Highly publicized South American tour dates in 1974 brought Johnny Cash to Buenos Aires for a series of concerts."
+},
+{
+"id": "65",
+"name": "Diamantina",
+"type": "city",
+"desc": "The Minas Gerais region of Brazil was part of the international touring expansion mapped out by Cash in the mid-1970s."
+},
+{
+"id": "66",
+"name": "Pasadena",
+"type": "city",
+"desc": "Playing the iconic Rose Bowl and local Pasadena theaters kept Johnny Cash busy during his Southern California concert runs in the 1980s."
+},
+{
+"id": "67",
+"name": "Catalina",
+"type": "city",
+"desc": "Channel Islands boat trips and coastal relaxation were a frequent escape for Cash during the years he lived in Encino."
+},
+{
+"id": "68",
+"name": "Pittsburgh",
+"type": "city",
+"desc": "The Civic Arena in Pittsburgh completely sold out when Cash rolled through during his live-album peak in 1969."
+},
+{
+"id": "69",
+"name": "Parkersburg",
+"type": "city",
+"desc": "West Virginia state fair circuits and local auditoriums hosted Johnny Cash during his Appalachian tours in the 1970s."
+},
+{
+"id": "70",
+"name": "Gravelbourg",
+"type": "city",
+"desc": "Saskatchewan transit routes were standard during the massive Western Canadian prairie tours booked by Cash in the early 1960s."
+},
+{
+"id": "71",
+"name": "Colorado",
+"type": "state",
+"desc": "Red Rocks Amphitheatre and various Denver arenas hosted multiple performances by Johnny Cash throughout the 1970s and 1980s."
+},
+{
+"id": "72",
+"name": "Ellensburg",
+"type": "city",
+"desc": "Washington state rodeo and fair grounds featured Cash during his intensive Pacific Northwest agricultural tours in the 1960s."
+},
+{
+"id": "73",
+"name": "Rexburg",
+"type": "city",
+"desc": "Intermountain West sweeps in the early 1970s brought Johnny Cash and his traveling roadshow to Eastern Idaho."
+},
+{
+"id": "74",
+"name": "Vicksburg",
+"type": "city",
+"desc": "Mississippi River tour stops were part of the early Southern country package tours booked by Cash in 1957."
+},
+{
+"id": "75",
+"name": "Eldorado",
+"type": "city",
+"desc": "Local high schools and community centers in this Arkansas town hosted early performances by Johnny Cash in 1956."
+},
+{
+"id": "76",
+"name": "Larimore",
+"type": "city",
+"desc": "Late-autumn upper Midwest auditorium tours in 1974 required Cash to cross directly through this North Dakota region."
+},
+{
+"id": "77",
+"name": "Atmore",
+"type": "city",
+"desc": "Local community venues in Alabama hosted Johnny Cash during his deep Southern tours in the 1970s."
+},
+{
+"id": "78",
+"name": "Haverstraw",
+"type": "city",
+"desc": "The Hudson Valley region of New York saw regular theater dates from Cash during his East Coast runs in the 1970s."
+},
+{
+"id": "79",
+"name": "Chatanika",
+"type": "city",
+"desc": "Highly anticipated frontier tours and hunting trips in the 1980s took Johnny Cash deep into the Alaskan interior."
+},
+{
+"id": "80",
+"name": "Chaska",
+"type": "city",
+"desc": "Minneapolis-St. Paul suburban circuits included stops near Chaska for Cash during his mid-1970s Minnesota runs."
+},
+{
+"id": "81",
+"name": "Nebraska",
+"type": "state",
+"desc": "The Pershing Auditorium in Lincoln hosted Johnny Cash on November 7, 1974, as part of a massive heartland tour."
+},
+{
+"id": "82",
+"name": "Alaska",
+"type": "state",
+"desc": "A series of historic concerts in Anchorage and Fairbanks brought Cash up north to explore the wilderness in 1981."
+},
+{
+"id": "83",
+"name": "Opelika",
+"type": "city",
+"desc": "East Alabama venues and university crowds hosted Johnny Cash during his Southern campus sweeps in the 1970s."
+},
+{
+"id": "84",
+"name": "Baraboo",
+"type": "city",
+"desc": "Headlining Wisconsin state and county fairs in the mid-1970s allowed Cash to visit this historic circus town."
+},
+{
+"id": "85",
+"name": "Waterloo",
+"type": "city",
+"desc": "A major show at the McElroy Auditorium in Waterloo, Iowa, was delivered by Johnny Cash on November 8, 1974."
+},
+{
+"id": "86",
+"name": "Kalamazoo",
+"type": "city",
+"desc": "The Western Michigan University campus in Kalamazoo hosted Cash during his heavy college-circuit tours in 1972."
+},
+{
+"id": "87",
+"name": "Kansas City",
+"type": "city",
+"desc": "Packing the Memorial Hall and Kemper Arena was a standard result for Johnny Cash during his frequent midwest sweeps from 1960 to 1985."
+},
+{
+"id": "88",
+"name": "Sioux City",
+"type": "city",
+"desc": "The Sioux City Auditorium in Iowa hosted a major concert event headlined by Cash on November 5, 1974."
+},
+{
+"id": "89",
+"name": "Cedar City",
+"type": "city",
+"desc": "Intermountain sweeps in 1972 brought Johnny Cash through Southern Utah to play regional venues."
+},
+{
+"id": "90",
+"name": "Dodge City",
+"type": "city",
+"desc": "Local western heritage festivals and community arenas featured Cash during his Kansas sweeps in the late 1960s."
+}
+]

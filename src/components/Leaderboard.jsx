@@ -28,6 +28,9 @@ export default function Leaderboard({ total = 0 }) {
       const list = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
+        // Hidden as a penalty for failing the password-reset quiz 3x; restored
+        // when they next sign in with their real password (see Cloud Functions).
+        if (data.leaderboardHidden) return;
         list.push({
           id: doc.id,
           name: data.username || 'Anonymous',
@@ -70,17 +73,19 @@ export default function Leaderboard({ total = 0 }) {
               <li key={leader.id} className="flex items-center gap-3 p-4">
                 <span className={`relative grid h-9 w-9 shrink-0 place-items-center rounded-sm font-display text-base font-bold ${rank.badge}`}>
                   {i + 1}
-                  {i === 0 && (
-                    <Award className="absolute -top-3 left-1/2 h-4 w-4 -translate-x-1/2 text-brass fill-gold animate-float" />
-                  )}
                 </span>
-                <Avatar
-                  name={leader.name}
-                  profileImage={leader.profileImage}
-                  className={`h-10 w-10 shrink-0 overflow-hidden rounded-sm text-lg ${
-                    i === 0 ? 'ring-2 ring-gold/60' : 'ring-1 ring-ink/10'
-                  }`}
-                />
+                <div className="relative shrink-0">
+                  <Avatar
+                    name={leader.name}
+                    profileImage={leader.profileImage}
+                    className={`h-10 w-10 overflow-hidden rounded-sm text-lg ${
+                      i === 0 ? 'ring-2 ring-gold/60' : 'ring-1 ring-ink/10'
+                    }`}
+                  />
+                  {i === 0 && (
+                    <Award className="absolute -bottom-2 -right-2 h-6 w-6 text-brass fill-gold drop-shadow-md animate-wiggle" />
+                  )}
+                </div>
                 <div className="min-w-0 flex-1">
                   <span className="block truncate font-display text-base font-semibold text-ink">{leader.name}</span>
                   <div className="mt-1.5 flex items-center gap-2">
