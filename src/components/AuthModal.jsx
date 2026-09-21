@@ -198,7 +198,7 @@ export default function AuthModal({ isOpen, onClose, places = [] }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/75 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[10010] flex items-center justify-center bg-ink/75 backdrop-blur-sm p-4"
       onClick={handleBackdropClick}
     >
       <div className="relative w-full max-w-md overflow-hidden rounded-[0.85rem] bg-rail-gradient bg-[length:200%_auto] animate-gradient p-[3px] shadow-glow-strong animate-pop">

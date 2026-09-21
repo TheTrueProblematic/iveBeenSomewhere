@@ -13,11 +13,13 @@
 // rules and is read only with the Admin SDK.
 
 // ---- Constants ------------------------------------------------------------
-export const TOTAL_PLACES = 91; // the 91 locations in "I've Been Everywhere"
+export const TOTAL_PLACES = 92; // the 92 locations in "I've Been Everywhere"
 export const QUIZ_SIZE = 10; // tiles shown per attempt
 export const MAX_ATTEMPTS = 3; // tries per reset cycle before lockout
 export const MIN_ELIGIBLE = 5; // fewer than this → cannot verify identity
-export const MAX_ELIGIBLE = 86; // more than this → cannot verify identity
+// The user must have a substantial enough unknown space (haven't been) and a substantial
+// enough known space (have been) to construct a non-trivial quiz.
+export const MAX_ELIGIBLE = 87; // more than this → cannot verify identity
 export const MIN_PASSWORD = 6; // Firebase Auth's own minimum
 export const MAX_PASSWORD = 1024; // guard against overflow / abuse
 export const MAX_USERNAME = 64; // guard against overflow / abuse
@@ -46,7 +48,7 @@ export function isEligible(count) {
 // total visited count. The rest are places they have NOT been to. Bands:
 //   5–10  → 2 visited / 8 unvisited
 //   11–79 → 3–7 visited (random) / the rest unvisited
-//   80–86 → 8 visited / 2 unvisited
+//   80–87 → 8 visited / 2 unvisited
 // `rng` is injectable so tests are deterministic.
 export function visitedTileCount(count, rng = Math.random) {
   if (count <= 10) return 2;
@@ -88,7 +90,7 @@ export function buildChallenge(visitedIds, allIds, rng = Math.random) {
   const nVisited = visitedTileCount(count, rng);
   const nUnvisited = QUIZ_SIZE - nVisited;
 
-  // Defensive feasibility check (should always hold for an eligible user given 91
+  // Defensive feasibility check (should always hold for an eligible user given 92
   // total places, but never trust the data blindly).
   if (nVisited > visitedSet.size || nUnvisited > unvisitedIds.length) {
     throw new Error('cannot compose a valid challenge from this data');

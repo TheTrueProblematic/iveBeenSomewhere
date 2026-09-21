@@ -12,7 +12,7 @@
 
 const QUIZ_SIZE = 10;
 const MAX_ATTEMPTS = 3;
-const ALL_IDS = Array.from({ length: 91 }, (_, i) => String(i));
+const ALL_IDS = Array.from({ length: 92 }, (_, i) => String(i));
 const MOCK_VISITED = new Set(Array.from({ length: 40 }, (_, i) => String(i)));
 
 let state = freshState();

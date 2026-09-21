@@ -48,6 +48,17 @@ export default function MapTracker({ places, onSelectPlace }) {
     };
   }, [map]);
 
+  // react-leaflet freezes MapContainer's props after mount, so the `dragging`
+  // prop below is only ever read once — it cannot react to the fullscreen
+  // toggle. Drive Leaflet's handler directly instead: on phones the inline map
+  // stays undraggable (so a swipe scrolls the page), but the fullscreen map
+  // must pan or it's unusable.
+  useEffect(() => {
+    if (!map) return;
+    if (!L.Browser.mobile || isFullscreen) map.dragging.enable();
+    else map.dragging.disable();
+  }, [map, isFullscreen]);
+
   const toggleFullscreen = () => {
     if (isFullscreen) {
       if (document.fullscreenElement || document.webkitFullscreenElement) {
@@ -179,9 +190,9 @@ export default function MapTracker({ places, onSelectPlace }) {
             className="w-full h-full"
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
-              subdomains="abcd"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              subdomains="abc"
               noWrap={false}
             />
 

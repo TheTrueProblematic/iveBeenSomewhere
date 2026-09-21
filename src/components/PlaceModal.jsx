@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useStore } from '../store';
-import { X, Check, MapPin, Star, Building2, Map as MapIcon, Globe } from 'lucide-react';
+import { X, Check, MapPin, Star, Building2, Map as MapIcon, Globe, Loader2 } from 'lucide-react';
 
 const TYPE_THEME = {
   city: { gradient: 'from-ash via-denim to-ink', Icon: Building2 },
@@ -9,7 +9,7 @@ const TYPE_THEME = {
 };
 
 export default function PlaceModal({ place, onClose }) {
-  const { visitedPlaces, toggleVisited, user, setAuthModalOpen } = useStore();
+  const { visitedPlaces, toggleVisited, user, visitedLoaded, setAuthModalOpen } = useStore();
   const [burstKey, setBurstKey] = useState(0);
 
   // Reset any lingering celebration when switching places
@@ -22,12 +22,16 @@ export default function PlaceModal({ place, onClose }) {
   const isVisited = visitedPlaces.has(place.id);
   const theme = TYPE_THEME[place.type] ?? TYPE_THEME.city;
   const TypeIcon = theme.Icon;
+  // The store refuses to persist a toggle before the signed-in user's real list
+  // has loaded, so show that wait instead of swallowing the click.
+  const awaitingList = !!user && !visitedLoaded;
 
   const handleToggle = () => {
     if (!user) {
       setAuthModalOpen(true);
       return;
     }
+    if (awaitingList) return;
     const willVisit = !isVisited;
     toggleVisited(place.id);
     if (willVisit) setBurstKey((k) => k + 1);
@@ -35,7 +39,7 @@ export default function PlaceModal({ place, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
@@ -86,13 +90,20 @@ export default function PlaceModal({ place, onClose }) {
 
             <button
               onClick={handleToggle}
-              className={`relative w-full rounded-md px-4 py-3.5 font-display text-lg font-semibold uppercase tracking-wide flex items-center justify-center gap-2 transition-all active:scale-[0.98] ${
+              disabled={awaitingList}
+              aria-busy={awaitingList}
+              className={`relative w-full rounded-md px-4 py-3.5 font-display text-lg font-semibold uppercase tracking-wide flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:cursor-wait disabled:opacity-60 disabled:active:scale-100 ${
                 isVisited
                   ? 'bg-brass/15 text-oxblood hover:bg-brass/25 ring-1 ring-oxblood/30'
                   : 'bg-cash-gradient bg-[length:200%_auto] animate-gradient text-paper-light shadow-glow hover:shadow-glow-strong'
               }`}
             >
-              {isVisited ? (
+              {awaitingList ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Loading Your Places
+                </>
+              ) : isVisited ? (
                 <>
                   <Check className="h-5 w-5" />
                   I&rsquo;ve Been There (Unmark)
