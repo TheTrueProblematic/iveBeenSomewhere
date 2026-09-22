@@ -6,7 +6,7 @@ Track all 92 locations mentioned in the song, view them on an interactive map, a
 Live: https://ivebeensomewhere-tp.web.app
 
 ## Features
-- **Interactive Map**: OpenStreetMap tiles, tinted to look like a worn road atlas, showing cities as pins and states/countries as highlighted polygons, with a fullscreen view. Visited places glow gold; unvisited places are dimmed to near-monochrome so your progress stands out. On phones the inline map doesn't swallow your swipe — go fullscreen to pan it.
+- **Interactive Map**: OpenStreetMap tiles, tinted to look like a worn road atlas, showing cities as pins and states/countries as highlighted polygons, with a fullscreen view you can keep marking places from. Visited places glow gold; unvisited places are dimmed to near-monochrome so your progress stands out. On phones the inline map doesn't swallow your swipe — go fullscreen to pan it.
 - **List View**: Chronological list of everywhere Cash has been.
 - **Dynamic Leaderboard**: Global leaderboard tracking percentage of places visited.
 - **Accounts**: Secure account creation to track your personal journey. Your user icon opens a settings menu where you can change your username, pick a profile picture, change your password, log out, or delete your account.

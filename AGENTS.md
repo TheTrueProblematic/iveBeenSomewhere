@@ -38,7 +38,13 @@ These layers can be on screen at the same time, so their `z-index`es are deliber
 | `PlaceModal` | `10000` |
 | `AuthModal` / `UserSettingsModal` | `10010` |
 
-`PlaceModal` has to clear the fullscreen map (tapping a pin in fullscreen must still open the place), and the auth/settings modals have to clear `PlaceModal` — a signed-out user pressing "Mark as Visited" opens `AuthModal` *on top of* the still-open place card. Lowering either one hides a modal behind another and makes the button look dead.
+`PlaceModal` has to clear the CSS-fallback fullscreen map (tapping a pin in fullscreen must still open the place), and the auth/settings modals have to clear `PlaceModal` — a signed-out user pressing "Mark as Visited" opens `AuthModal` *on top of* the still-open place card. Lowering either one hides a modal behind another and makes the button look dead.
+
+**z-index is not enough under native fullscreen**, though, and this is the part that bit us twice. `requestFullscreen()` moves the map card into the browser's **top layer** and paints an opaque `::backdrop` behind it; the top layer sits above the entire z-index stack, so a modal rendered at the App root is simply not visible — it only "appeared" once you exited fullscreen. The fix is `src/overlayHost.js`: `useOverlayHost()` returns `document.fullscreenElement` when something is fullscreen and `document.body` otherwise, and `PlaceModal` / `AuthModal` / `UserSettingsModal` each `createPortal` into it, so while the map is fullscreen the modals are mounted *inside* the fullscreen element's subtree. Points worth knowing:
+- Call `useOverlayHost()` **before** the component's `if (!isOpen) return null` — it's a hook.
+- The host node's `overflow-hidden` does not clip the modal: a `position: fixed` descendant is only clipped by an ancestor that creates a containing block (transform/filter/`contain`), and the card has none.
+- Exiting fullscreen with a modal open re-parents it to `<body>`, which remounts that subtree. The open/closed state lives in `App`/the store, so the modal stays up; only local state inside it (e.g. `burstKey`) resets.
+- Any *new* app-level overlay must use `useOverlayHost` too, or it will be invisible over a fullscreen map.
 
 ## Data Structure
 - `public/places.json`: Contains the 92 locations mentioned in Johnny Cash's "I've Been Everywhere". Includes coordinates and GeoJSON polygons (generated via Nominatim) to accurately render state/country boundaries. Order is the order the places are sung, and `index + 1` is what the list view numbers; `id` is the stable key stored in a user's visited list, so **ids must never be renumbered** — a new place gets the next unused id and is inserted at its position in the song (Winnemucca is id `91` at index 0).

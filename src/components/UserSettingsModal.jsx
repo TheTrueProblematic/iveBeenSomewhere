@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X, LogOut, KeyRound, Trash2, Pencil, Check, ChevronLeft, Loader2, AlertTriangle, User, Star,
 } from 'lucide-react';
@@ -9,6 +10,7 @@ import {
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db, isTestMode } from '../firebase';
 import { useStore } from '../store';
+import { useOverlayHost } from '../overlayHost';
 import { profileImages } from '../profileImages';
 import { isProtectedUsername, isExactProtectedUsername, PROTECTED_USERNAME } from '../reservedNames';
 import { isProfaneUsername } from '../profanityFilter';
@@ -40,6 +42,8 @@ export default function UserSettingsModal({ isOpen, onClose }) {
   const [newPw, setNewPw] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
   const [deletePw, setDeletePw] = useState('');
+  // See ../overlayHost — keeps the modal visible over a fullscreen map.
+  const overlayHost = useOverlayHost();
 
   // Reset everything whenever the modal is (re)opened or closed.
   useEffect(() => {
@@ -281,7 +285,7 @@ export default function UserSettingsModal({ isOpen, onClose }) {
     </div>
   );
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[10010] flex items-center justify-center bg-ink/75 backdrop-blur-sm p-4"
       onClick={handleBackdropClick}
@@ -518,7 +522,8 @@ export default function UserSettingsModal({ isOpen, onClose }) {
 
         </div>
       </div>
-    </div>
+    </div>,
+    overlayHost,
   );
 }
 

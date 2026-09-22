@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Lock, User, KeyRound, Loader2 } from 'lucide-react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db, isTestMode } from '../firebase';
 import { useStore } from '../store';
+import { useOverlayHost } from '../overlayHost';
 import { isProtectedUsername } from '../reservedNames';
 import { isProfaneUsername } from '../profanityFilter';
 import PasswordResetFlow from './PasswordResetFlow';
@@ -24,6 +26,9 @@ export default function AuthModal({ isOpen, onClose, places = [] }) {
   const [failCount, setFailCount] = useState(0);
   const [showForgot, setShowForgot] = useState(false);
   const { setUser } = useStore();
+  // Mount inside the fullscreen element when the map is fullscreen, so signing
+  // in from a place card still works there. See ../overlayHost.
+  const overlayHost = useOverlayHost();
 
   // Fresh start each time the modal opens — including clearing the typed
   // credentials so a previous session's username/password never lingers.
@@ -196,7 +201,7 @@ export default function AuthModal({ isOpen, onClose, places = [] }) {
     }
   };
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[10010] flex items-center justify-center bg-ink/75 backdrop-blur-sm p-4"
       onClick={handleBackdropClick}
@@ -341,6 +346,7 @@ export default function AuthModal({ isOpen, onClose, places = [] }) {
 
         </div>
       </div>
-    </div>
+    </div>,
+    overlayHost,
   );
 }

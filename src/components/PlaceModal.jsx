@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useStore } from '../store';
+import { useOverlayHost } from '../overlayHost';
 import { X, Check, MapPin, Star, Building2, Map as MapIcon, Globe, Loader2 } from 'lucide-react';
 
 const TYPE_THEME = {
@@ -11,6 +13,9 @@ const TYPE_THEME = {
 export default function PlaceModal({ place, onClose }) {
   const { visitedPlaces, toggleVisited, user, visitedLoaded, setAuthModalOpen } = useStore();
   const [burstKey, setBurstKey] = useState(0);
+  // Mount inside the fullscreen element when the map is fullscreen — a modal
+  // outside it is hidden behind the top layer's backdrop. See ../overlayHost.
+  const overlayHost = useOverlayHost();
 
   // Reset any lingering celebration when switching places
   useEffect(() => {
@@ -37,7 +42,7 @@ export default function PlaceModal({ place, onClose }) {
     if (willVisit) setBurstKey((k) => k + 1);
   };
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-ink/60 backdrop-blur-sm"
       onClick={onClose}
@@ -118,6 +123,7 @@ export default function PlaceModal({ place, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    overlayHost,
   );
 }
